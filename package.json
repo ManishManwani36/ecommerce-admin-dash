@@ -17,6 +17,7 @@
     ]
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.21.13",
     "@radix-ui/react-slot": "^1.0.2",
     "@types/node": "20.3.3",
     "@types/react": "18.2.14",
@@ -45,9 +46,9 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
+    "husky": "^8.0.0",
     "prettier": "^2.8.8",
-    "prettier-plugin-organize-imports": "^3.2.2",
-    "husky": "^8.0.0"
+    "prettier-plugin-organize-imports": "^3.2.2"
   },
   "config": {
     "commitizen": {
