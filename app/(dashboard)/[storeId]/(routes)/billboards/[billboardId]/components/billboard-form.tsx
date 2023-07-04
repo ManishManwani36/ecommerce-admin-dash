@@ -38,12 +38,11 @@ interface Props {
 export function BillboardForm({ initialData }: Props) {
   const params = useParams();
   const router = useRouter();
-  // const origin = useOrigin();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const title = initialData ? "Edit Billboard" : "Create Billboard";
   const description = initialData ? "Edit a Billboard" : "Add a new Billboard";
-  // const toastMessage = initialData ? "Billboard Updated" : "Billboard Created";
+  const toastMessage = initialData ? "Billboard Updated" : "Billboard Created";
   const action = initialData ? "Save Changes" : "Create";
 
   const form = useForm<BillboardFormValues>({
@@ -57,9 +56,17 @@ export function BillboardForm({ initialData }: Props) {
   const onSubmit = async (data: BillboardFormValues) => {
     try {
       setLoading(true);
-      await axios.patch(`/api/stores/${params.storeId}`, data);
+      if (initialData) {
+        await axios.patch(
+          `/api/${params.storeId}/billboards/${params.billboardId}`,
+          data,
+        );
+      } else {
+        await axios.post(`/api/${params.storeId}/billboards`, data);
+      }
       router.refresh();
-      toast.success("Store name updated.");
+      router.push(`/${params.storeId}/billboards`);
+      toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong.");
     } finally {
@@ -70,12 +77,14 @@ export function BillboardForm({ initialData }: Props) {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/stores/${params.storeId}`);
+      await axios.delete(
+        `/api/${params.storeId}/billboards/${params.billboardId}`,
+      );
       router.refresh();
       router.push("/");
-      toast.success("Store deleted.");
+      toast.success("Billboard deleted.");
     } catch (error) {
-      toast.error("Make sure you remove all products and categories first.");
+      toast.error("Make sure you remove all categories using this billboard.");
     } finally {
       setLoading(false);
       setOpen(false);
