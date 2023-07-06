@@ -12,8 +12,6 @@ export async function POST(
 
     const { label, imageUrl } = body;
 
-    console.log(label, imageUrl, params.storeId, "WOOOOOO");
-
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
     }
