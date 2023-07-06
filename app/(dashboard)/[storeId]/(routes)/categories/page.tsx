@@ -26,7 +26,7 @@ export default async function CategoriesPage({
     id: category.id,
     name: category.name,
     billboardLabel: category.billboard.label,
-    createAt: format(category.createdAt, "MMM do, yyyy"),
+    createAt: format(category.createdAt, "MMMM do, yyyy"),
   }));
 
   return (
